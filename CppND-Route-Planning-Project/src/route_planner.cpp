@@ -187,7 +187,8 @@ void RoutePlanner::AStarSearch() {
     //RouteModel::Node *current_node = nullptr;
   	RouteModel::Node *current_node = start_node;
   
-  
+  	// Initialize open_list vector to start_node
+  	//std::vector<RouteModel::Node*> open_list.pushback(current_node);
 
     // TODO: Implement your solution here.
   	AddNeighbors(current_node);
