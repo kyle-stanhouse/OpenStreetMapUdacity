@@ -62,6 +62,8 @@ int main(int argc, const char **argv)
   	
     //Need to add error checking
     std::cin >> start_x >> start_y >> end_x >> end_y;
+  
+   std::cout << "got here" << "/n"
 
     // Build Model.
     RouteModel model{osm_data};
