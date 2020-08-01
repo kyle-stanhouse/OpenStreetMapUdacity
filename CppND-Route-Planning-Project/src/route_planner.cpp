@@ -191,18 +191,23 @@ void RoutePlanner::AStarSearch() {
   	RouteModel::Node *current_node = start_node;
   
   	// Initialize open_list vector to start_node
-  	//std::vector<RouteModel::Node*> open_list.pushback(current_node);
-
-    // TODO: Implement your solution here.
-  	AddNeighbors(current_node);
-      
-    //RouteModel::Node *RoutePlanner::NextNode()
-    current_node = NextNode();
+  	std::vector<RouteModel::Node*> open_list = {};
+  	open_list.push_back(current_node);
   
-  	//Check for end_node, construct final path (if )
-  	//std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node *current_node)
-  	if (current_node == end_node){
-    	m_Model.path = ConstructFinalPath(current_node);
-    }
+  	// Execute search
+  	while (current_node != end_node){
+
+    	// TODO: Implement your solution here.
+  		AddNeighbors(current_node);
+      
+    	//RouteModel::Node *RoutePlanner::NextNode()
+    	current_node = NextNode();
+  
+  		//Check for reaching end_node, construct final path 
+  		//std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node *current_node)
+  		if (current_node == end_node){
+    		m_Model.path = ConstructFinalPath(current_node);
+    	}
+	}
 
 }
