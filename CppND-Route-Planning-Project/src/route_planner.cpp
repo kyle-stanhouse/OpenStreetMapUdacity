@@ -148,8 +148,11 @@ std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node 
     // TODO: Implement your solution here.
   	while(current_node != start_node){
       
+      //Update distance traveled 
       distance = distance + current_node->distance(*current_node->parent);
+      //Reset current node to the parent
       current_node = current_node->parent;
+      //Add the parent node to the path
       path_found.push_back(*current_node->parent);
       
     }
