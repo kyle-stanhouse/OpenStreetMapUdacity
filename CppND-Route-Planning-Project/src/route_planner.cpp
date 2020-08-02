@@ -196,7 +196,7 @@ void RoutePlanner::AStarSearch() {
   	open_list.push_back(current_node);
   
   	// Execute search
-  	while (current_node->x == end_node->x && current_node->y == end_node->y){
+  	while (current_node->x != end_node->x && current_node->y != end_node->y){
     //while( open_list.size() > 0 ){
 
     	// TODO: Implement your solution here.
