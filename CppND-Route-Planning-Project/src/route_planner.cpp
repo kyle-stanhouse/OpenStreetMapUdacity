@@ -150,10 +150,12 @@ std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node 
     while(current_node->x != start_node->x && current_node->y != start_node->y){  
       //Update distance traveled 
       distance = distance + current_node->distance(*current_node->parent);
-      //Reset current node to the parent
-      current_node = current_node->parent;
-      //Add the parent node to the path
-      path_found.push_back(*current_node->parent);
+      //Reset current node to the parent, unless we've reached the start node
+      if (current_node->x != start_node->x && current_node->y != start_node->y){
+      	current_node = current_node->parent;
+      	//Add the parent node to the path
+      	path_found.push_back(*current_node->parent);
+      }
       
     }
   
