@@ -53,7 +53,7 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
         //Test: EXPECT_FLOAT_EQ(neighbors[i]->g_value, start_neighbor_g_vals[i]);
       	neighbor->g_value = current_node->g_value + current_node->distance(*neighbor);
         //Test: EXPECT_FLOAT_EQ(neighbors[i]->h_value, start_neighbor_h_vals[i]);
-        neighbor->h_value = CalculateHValue(current_node);
+        neighbor->h_value = CalculateHValue(neighbor);
       
       	//add to open_list and set visited to true
        	//Test: EXPECT_EQ(neighbors[i]->visited, true);
@@ -190,8 +190,7 @@ void RoutePlanner::AStarSearch() {
     //RouteModel::Node *current_node = nullptr;
   	RouteModel::Node *current_node = start_node;
   
-  	// Initialize open_list vector to start_node
-  	std::vector<RouteModel::Node*> open_list = {};
+  	// Add start node to open_list vector
   	open_list.push_back(current_node);
   
   	// Execute search
@@ -206,7 +205,8 @@ void RoutePlanner::AStarSearch() {
   
   		//Check for reaching end_node, construct final path 
   		//std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node *current_node)
-  		if (current_node == end_node){
+  		//if (current_node == end_node){
+        if (current_node->x == end_node->x && current_node->y == end_node->y){
     		m_Model.path = ConstructFinalPath(current_node);
     	}
 	}
