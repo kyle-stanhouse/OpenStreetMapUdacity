@@ -13,8 +13,8 @@ RoutePlanner::RoutePlanner(RouteModel &model, float start_x, float start_y, floa
 
     // TODO 2: Use the m_Model.FindClosestNode method to find the closest nodes to the starting and ending coordinates.
     // Store the nodes you find in the RoutePlanner's start_node and end_node attributes.
-    RouteModel::Node* start_node = &m_Model.FindClosestNode(start_x, start_y);
-    RouteModel::Node* end_node = &m_Model.FindClosestNode(end_x, end_y);
+    start_node = &m_Model.FindClosestNode(start_x, start_y);
+    end_node = &m_Model.FindClosestNode(end_x, end_y);
 
 }
 
@@ -196,8 +196,8 @@ void RoutePlanner::AStarSearch() {
   	open_list.push_back(current_node);
   
   	// Execute search
-  	//while (current_node != end_node){
-    while( open_list.size() > 0 ){
+  	while (current_node->x == end_node->x && current_node->y == end_node->y){
+    //while( open_list.size() > 0 ){
 
     	// TODO: Implement your solution here.
   		AddNeighbors(current_node);
