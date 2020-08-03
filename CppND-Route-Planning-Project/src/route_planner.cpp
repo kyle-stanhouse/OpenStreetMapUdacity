@@ -13,6 +13,10 @@ RoutePlanner::RoutePlanner(RouteModel &model, float start_x, float start_y, floa
     // Store the nodes you find in the RoutePlanner's start_node and end_node attributes.
     start_node = &m_Model.FindClosestNode(start_x, start_y);
     end_node = &m_Model.FindClosestNode(end_x, end_y);
+  
+    //Debug
+  	//std::cout << start_node->x << std::endl; 
+    //std::cout << start_node->y << std::endl; 
 
 }
 
@@ -176,32 +180,48 @@ std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node 
 // - Store the final path in the m_Model.path attribute before the method exits. This path will then be displayed on the map tile.
 
 void RoutePlanner::AStarSearch() {
-    //RouteModel::Node *current_node = nullptr;
-  	RouteModel::Node *current_node = start_node;
+    RouteModel::Node *current_node = nullptr;
+  	//RouteModel::Node *current_node = start_node;
   
-    std::cout << current_node->x << std::endl;
+    //std::cout << current_node->x << std::endl;
+    start_node->g_value = 0;
+    start_node->h_value = CalculateHValue(start_node);
+  	start_node->visited = true;
   
   	// Add start node to open_list vector	
-  	open_list.push_back(current_node);
+  	open_list.push_back(start_node);
+    //AddNeighbors(current_node);
   
   	// Execute search
   	//while (current_node->x != end_node->x && current_node->y != end_node->y){
-    //while( open_list.size() > 0 ){
-    while(current_node != end_node){
+    while( open_list.size() > 0 ){
+    //while(current_node != end_node){
 
-    	// TODO: Implement your solution here.
-      	// Expand the neighbor list (adds to open_list)
+      	// Sort open_list and returns lowest sum
+        current_node = NextNode();
+      
+      	// Debug
+      	//std::cout << (open_list.size()) << std::endl;
+      //std::cout << current_node->x << std::endl;
+      
+      	if (current_node == end_node){
+        //if (current_node->x != end_node->x && current_node->y != end_node->y){
+          	m_Model.path = ConstructFinalPath(current_node);
+            std::cout << "found end" << std::endl;
+            break;
+        }
+          
   		AddNeighbors(current_node);
       
     	//RouteModel::Node *RoutePlanner::NextNode()
       	//Sort open_list and return the lowest cost node, set to the current node 
-    	current_node = NextNode();
+    	//current_node = NextNode();
   
         //std::cout << current_node->x << std::endl;
 	}
   
   	// After the end node is reached, loop back through the parent nodes to save full path
   	//std::cout << "Hi" << std::endl;
-  	m_Model.path = ConstructFinalPath(current_node);
+  	//m_Model.path = ConstructFinalPath(current_node);
 
 }
