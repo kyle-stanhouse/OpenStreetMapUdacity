@@ -8,8 +8,6 @@ RoutePlanner::RoutePlanner(RouteModel &model, float start_x, float start_y, floa
     start_y *= 0.01;
     end_x *= 0.01;
     end_y *= 0.01;
-  
-  	//std::cout << "we got here" << "/n";
 
     // TODO 2: Use the m_Model.FindClosestNode method to find the closest nodes to the starting and ending coordinates.
     // Store the nodes you find in the RoutePlanner's start_node and end_node attributes.
@@ -125,9 +123,7 @@ RouteModel::Node *RoutePlanner::NextNode() {
     // ExpandNeighbors
   }
   */
-    
-  	
-
+   
 }
 
 
@@ -149,40 +145,22 @@ std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node 
     path_found.push_back(*current_node);
 
     // TODO: Implement your solution here.
-  	//while(current_node != start_node){
-    //while(current_node->x != start_node->x && current_node->y != start_node->y){
-    //while(current_node->parent->x != start_node->x && current_node->parent->y != start_node->y){
-    //while(current_node->parent.x != start_node->x && current_node->parent.y != start_node->y){
     while(current_node->parent != start_node){
       
       //Update distance traveled 
       distance = distance + current_node->distance(*current_node->parent);
       //Reset current node to the parent, unless we've reached the start node
-      //if (current_node->x != start_node->x && current_node->y != start_node->y){
-      	current_node = current_node->parent;
-      	//Add the parent node to the path
-      	path_found.push_back(*current_node->parent);
-      //}
-      	//std::cout << "Hi" << std::endl; 
+      current_node = current_node->parent;
+      //Add the parent node to the path
+      path_found.push_back(*current_node->parent);
       
     }
   
+  	//Add the start node to the path
     path_found.push_back(*current_node->parent);
+  
     //reverse path so that end point is at the end ... 
     std::reverse(path_found.begin(), path_found.end());
-  
-  /*
-  float RoutePlanner::CalculateHValue(RouteModel::Node const *node) {
-  
-    return node->distance(*end_node);
-
-   }
-   
-   
-    for (int i=1; i<10; ++i) myvector.push_back(i);   // 1 2 3 4 5 6 7 8 9
-
-    std::reverse(myvector.begin(),myvector.end());    // 9 8 7 6 5 4 3 2 1
-   */
 
     distance *= m_Model.MetricScale(); // Multiply the distance by the scale of the map to get meters.
     return path_found;
@@ -201,8 +179,10 @@ void RoutePlanner::AStarSearch() {
     //RouteModel::Node *current_node = nullptr;
   	RouteModel::Node *current_node = start_node;
   
+    std::cout << current_node->x << std::endl;
+  
   	// Add start node to open_list vector	
-  	//open_list.push_back(current_node);
+  	open_list.push_back(current_node);
   
   	// Execute search
   	//while (current_node->x != end_node->x && current_node->y != end_node->y){
@@ -210,19 +190,18 @@ void RoutePlanner::AStarSearch() {
     while(current_node != end_node){
 
     	// TODO: Implement your solution here.
+      	// Expand the neighbor list (adds to open_list)
   		AddNeighbors(current_node);
       
     	//RouteModel::Node *RoutePlanner::NextNode()
+      	//Sort open_list and return the lowest cost node, set to the current node 
     	current_node = NextNode();
   
-  		//Check for reaching end_node, construct final path 
-  		//std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node *current_node)
-  		//if (current_node == end_node){
-        //if (current_node->x == end_node->x && current_node->y == end_node->y){
-    	//	m_Model.path = ConstructFinalPath(current_node);
-    	//}
+        //std::cout << current_node->x << std::endl;
 	}
   
+  	// After the end node is reached, loop back through the parent nodes to save full path
+  	//std::cout << "Hi" << std::endl;
   	m_Model.path = ConstructFinalPath(current_node);
 
 }
