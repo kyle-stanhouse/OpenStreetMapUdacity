@@ -201,13 +201,13 @@ void RoutePlanner::AStarSearch() {
     //RouteModel::Node *current_node = nullptr;
   	RouteModel::Node *current_node = start_node;
   
-  	// Add start node to open_list vector
+  	// Add start node to open_list vector	
   	//open_list.push_back(current_node);
   
   	// Execute search
   	//while (current_node->x != end_node->x && current_node->y != end_node->y){
     //while( open_list.size() > 0 ){
-    while(current_node->parent != start_node){
+    while(current_node != end_node){
 
     	// TODO: Implement your solution here.
   		AddNeighbors(current_node);
