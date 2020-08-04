@@ -58,7 +58,7 @@ int main(int argc, const char **argv)
   	float start_x, start_y, end_x, end_y;
 	std::cout << "Please provide the start and end points of the desired path." << std::endl;
   	std::cout << "Format: start_x start_y end_x end_y " << std::endl;
-    std::cout << "Start and endpoints must be contained in [0 100] " << std::endl;
+    std::cout << "Start and endpoints must be contained in (0 100) " << std::endl;
   	
     //Need to add error checking
     std::cin >> start_x >> start_y >> end_x >> end_y;

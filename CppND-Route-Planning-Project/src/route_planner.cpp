@@ -193,8 +193,8 @@ void RoutePlanner::AStarSearch() {
   	start_node->visited = true;
   
   	// Add start node to open_list vector	
-  	//open_list.push_back(start_node);
-  	std::cout << start_node->x << std::endl;
+  	open_list.push_back(start_node);
+  	//std::cout << start_node->x << std::endl;
     //AddNeighbors(current_node);
   
   	// Execute search
