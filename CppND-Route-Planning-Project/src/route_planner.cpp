@@ -72,23 +72,6 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
 // - Remove that node from the open_list.
 // - Return the pointer.
 
-/*
- 
-  bool Compare(const vector<int> a, const vector<int> b) {
-  int f1 = a[2] + a[3]; // f1 = g1 + h1
-  int f2 = b[2] + b[3]; // f2 = g2 + h2
-  return f1 > f2; 
-  }
-  
-  void CellSort(vector<vector<int>> *v) {
-  sort(v->begin(), v->end(), Compare);
-  }
-  
-*/
-
-//bool Compare(const std::vector<RouteModel::Node*> a, const std::vector<RouteModel::Node*> b){
-//bool Compare(const std::vector<RouteModel::Node*> a, const std::vector<RouteModel::Node*> b){
-//bool RoutePlanner::Compare(const RouteModel::Node* a, const RouteModel::Node* b){
 bool Compare(const RouteModel::Node* a, const RouteModel::Node* b){  
 
 	float cost1 = a->g_value + a->h_value; // cost1 = g1 + h1
@@ -107,26 +90,6 @@ RouteModel::Node *RoutePlanner::NextNode() {
   open_list.pop_back();
   
   return lowest_sum_node;
-  
-  /*
-    while (open.size() > 0) {
-    // Get the next node
-    CellSort(&open);
-    auto current = open.back();
-    open.pop_back();
-    x = current[0];
-    y = current[1];
-    grid[x][y] = State::kPath;
-
-    // Check if we're done.
-    if (x == goal[0] && y == goal[1]) {
-      return grid;
-    }
-    
-    // If we're not done, expand search to current node's neighbors.
-    // ExpandNeighbors
-  }
-  */
    
 }
 
@@ -194,13 +157,9 @@ void RoutePlanner::AStarSearch() {
   
   	// Add start node to open_list vector	
   	open_list.push_back(start_node);
-  	//std::cout << start_node->x << std::endl;
-    //AddNeighbors(current_node);
   
   	// Execute search
-  	//while (current_node->x != end_node->x && current_node->y != end_node->y){
     while( open_list.size() > 0 ){
-    //while(current_node != end_node){
 
       	// Sort open_list and returns lowest sum
         current_node = NextNode();
@@ -210,29 +169,13 @@ void RoutePlanner::AStarSearch() {
         //std::cout << current_node->x << std::endl;
       
       	if (current_node == end_node){
-        //if (current_node->x == end_node->x && current_node->y == end_node->y){
+          	// After the end node is reached, loop back through the parent nodes to save full path
           	m_Model.path = ConstructFinalPath(current_node);
-            //std::cout << "found end" << std::endl;
-          	//std::cout << current_node->x << std::endl;
-            //std::cout << end_node->x << std::endl;
-            //std::cout << m_Model.path.back().x << std::endl;
-          	//std::cout << start_node->x << std::endl;
-            //std::cout << m_Model.path.front().x << std::endl;
-            //std::cout << current_node << std::endl;
             return;
         }
           
   		AddNeighbors(current_node);
       
-    	//RouteModel::Node *RoutePlanner::NextNode()
-      	//Sort open_list and return the lowest cost node, set to the current node 
-    	//current_node = NextNode();
-  
-        //std::cout << current_node->x << std::endl;
 	}
-  
-  	// After the end node is reached, loop back through the parent nodes to save full path
-  	//std::cout << "Hi" << std::endl;
-  	//m_Model.path = ConstructFinalPath(current_node);
 
 }
